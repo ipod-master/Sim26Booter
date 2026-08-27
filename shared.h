@@ -1,6 +1,17 @@
 @import Darwin;
 @import XPC;
 
+#import <mach/mach.h>
+#import <mach/message.h>
+
+#ifndef MAX_TRAILER_SIZE
+#define MAX_TRAILER_SIZE (sizeof(mach_msg_trailer_t))
+#endif
+
+#ifndef HAVE_MIG_GET_REPLY_PORT_PROTO
+extern mach_port_t mig_get_reply_port(void);
+#endif
+
 #define TANK_SERVER_VALIDATE 707
 #define TANK_SERVER_GET_SERVICE_PORT 708
 #define TASK_GET_SPECIAL_PORT 1000
