@@ -32,13 +32,14 @@ static boolean_t mig_callback_get_special_port(mach_msg_header_t *message, mach_
 boolean_t hooked_dispatch_mig_callback(mach_msg_header_t *message, mach_msg_header_t *reply) {
     //NSLog(@"tank: message msgh_bits=0x%x id=0x%x size=%u", message->msgh_bits, message->msgh_id, message->msgh_size);
     switch(message->msgh_id) {
-        case 0x400000ce: // https://github.com/opa334/Dopamine/blob/314f7f2/BaseBin/libjailbreak/src/jbclient_mach.c#L33
+        case 0x400000ce: { // https://github.com/opa334/Dopamine/blob/314f7f2/BaseBin/libjailbreak/src/jbclient_mach.c#L33
             struct jbserver_mach_msg *jb_msg = (struct jbserver_mach_msg *)message;
             if(jb_msg->action == JBSERVER_MACH_GET_HOST_LAUNCHD_PORT) {
                 return mig_callback_get_special_port(message, reply);
             } else {
                 return mig_callback_dopamine(message, reply);
             }
+        }
         case TANK_SERVER_VALIDATE: // launchd_sim_trampoline validates tank connection
         case TANK_SERVER_GET_SERVICE_PORT: // launchd_sim requests its bootstrap port
             mig_callback_orig_called = true;
