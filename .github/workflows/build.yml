@@ -12,8 +12,9 @@ jobs:
 
       - name: Setup Theos Toolchain
         run: |
-          git clone --recursive https://github.com/theos/theos
+          git clone --recursive https://github.com/theos/theos $HOME/theos
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          echo "THEOS_MAKE_PATH=$HOME/theos/makefiles" >> $GITHUB_ENV
 
       - name: Compile Package Artifact
         run: |
