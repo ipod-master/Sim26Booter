@@ -1,0 +1,26 @@
+name: Build Sim26Booter
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_package:
+    runs-on: macos-13
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Theos Toolchain
+        run: |
+          bash -c "$(curl -fsSL https://githubusercontent.com)"
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+
+      - name: Compile Package Artifact
+        run: |
+          make package THEOS=$HOME/theos FINALPACKAGE=1 ARCHS="arm64"
+
+      - name: Upload Finished File
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sim26Booter-Package
+          path: packages/*.deb
