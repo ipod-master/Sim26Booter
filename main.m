@@ -1,4 +1,5 @@
-#include <stdio.h>
+#import <Foundation/Foundation.h>
+#import <stdio.h>
 
 int main(int argc, char *argv[], char *envp[]) {
 	@autoreleasepool {
